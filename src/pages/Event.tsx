@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom'
+import { Footer } from '../components/Footer'
 import { Header } from '../components/Header'
 import { Sidebar } from '../components/Sidebar'
 import { Video } from '../components/Video'
@@ -13,6 +14,9 @@ export function Event() {
         {slug ? <Video lessonSlug={slug} /> : <div className="flex-1" />}
         <Sidebar />
       </main>
+      <div className='w-[calc(100vw-347px)] border-r-[1px] border-gray-500'>
+        <Footer />
+      </div>
     </div>
   )
 }

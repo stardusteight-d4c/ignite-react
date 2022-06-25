@@ -1,8 +1,10 @@
-import { gql, useMutation } from '@apollo/client'
 import { useState, FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Footer } from '../components/Footer'
 import { Logo } from '../components/Logo'
 import { useCreateSubscriberMutation } from '../graphql/generated'
+
+import reactIcon from '/src/assets/reactIcon.svg'
 
 export function Subscribe() {
   const navigate = useNavigate()
@@ -25,7 +27,8 @@ export function Subscribe() {
   }
 
   return (
-    <div className="min-h-screen bg-blur bg-cover bg-no-repeat flex flex-col items-center">
+    <div className="bg-blur bg-cover bg-no-repeat flex flex-col items-center h-[100vh] overflow-hidden">
+      <img src={reactIcon} className="absolute mt-2 z-[0]" />
       <div className="w-full max-w-[1100px] flex items-center justify-between mt-20 mx-auto">
         <div className="max-w-[640px]">
           <Logo />
@@ -48,23 +51,23 @@ export function Subscribe() {
 
           <form
             onSubmit={handleSubscribe}
-            className="flex flex-col gap-2 w-full"
+            className="flex flex-col gap-2 w-full z-50"
           >
             <input
-              className=" bg-gray-900 rounded px-5 h-14"
+              className=" bg-gray-900 rounded px-5 h-14 z-50"
               type="text"
               placeholder="Seu nome completo"
               onChange={(event) => setName(event.target.value)}
             />
             <input
-              className=" bg-gray-900 rounded px-5 h-14"
+              className=" bg-gray-900 rounded px-5 h-14 z-50"
               type="email"
               placeholder="Digite seu email"
               onChange={(event) => setEmail(event.target.value)}
             />
 
             <button
-              className="mt-4 bg-green-500 uppercase py-4 rounded font-bold text-sm hover:bg-green-700 transition-colors disabled:opacity-50"
+              className="mt-4 bg-green-500 z-10 uppercase py-4 rounded font-bold text-sm hover:bg-green-700 transition-colors disabled:opacity-50"
               type="submit"
               disabled={loading}
             >
@@ -73,8 +76,9 @@ export function Subscribe() {
           </form>
         </div>
       </div>
-
-      <img src="/src/assets/code-mockup.png" className="mt-10" />
+      <div className='absolute bottom-0 w-[100vw]'>
+      <Footer />
+      </div>
     </div>
   )
 }
