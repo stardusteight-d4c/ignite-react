@@ -27,17 +27,17 @@ export function Subscribe() {
   }
 
   return (
-    <div className="bg-blur bg-cover bg-no-repeat flex flex-col items-center h-[100vh] overflow-hidden">
+    <div className="bg-blur bg-cover bg-no-repeat flex flex-col items-center h-[100vh] overflow-hidden md:h-auto">
       <img src={reactIcon} className="absolute mt-2 z-[0]" />
-      <div className="w-full max-w-[1100px] flex items-center justify-between mt-20 mx-auto">
-        <div className="max-w-[640px]">
+      <div className="w-full max-w-[1100px] flex items-center justify-between mt-20 mx-auto md:block md:text-center">
+        <div className="max-w-[640px] md:px-4 pb-5">
           <Logo />
           <h1 className="mt-8 text-[2.5rem] leading-tight">
             Construa uma{' '}
             <strong className="text-blue-500">aplicação completa</strong>, do
             zero, com <strong className="text-blue-500">React</strong>
           </h1>
-          <p className="mt-4 text-gray-200 leading-relaxed">
+          <p className="mt-4 text-gray-200 leading-relaxed md:text-xl">
             Em apenas uma semana você vai dominar na prática uma das tecnologias
             mais utilizadas e com alta demanda para acessar as melhores
             oportunidades do mercado.
@@ -76,7 +76,7 @@ export function Subscribe() {
           </form>
         </div>
       </div>
-      <div className='absolute bottom-0 w-[100vw]'>
+      <div className='absolute bottom-0 w-[100vw] md:relative'>
       <Footer />
       </div>
     </div>
