@@ -19,7 +19,6 @@ app.post("/sendEmailVerification", async (req: Request, res: Response) => {
     const { name, email } = req.body;
     const uid = new ShortUniqueId({ length: 10 });
     const token = uid();
-
     await sendEmailVerification(email, name, token).catch(console.error);
     const encryptedToken = await brcypt.hash(token, 10);
     return res.status(200).json({

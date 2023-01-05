@@ -1,30 +1,29 @@
 import { gql, useQuery } from '@apollo/client'
 import { ArrowLeft } from 'phosphor-react'
 import { useState, FormEvent } from 'react'
-import { useNavigate } from 'react-router-dom'
+import bcryptjs from 'bcryptjs'
+import { hostServer } from '../App'
 import { Footer } from '../components/Footer'
 import { Logo } from '../components/Logo'
 import { useCreateSubscriberMutation } from '../graphql/generated'
 import { useFindEmailQuery } from '../graphql/generated'
 import reactIcon from '/src/assets/react-icon.svg'
-
-// const FIND_EMAIL = gql`
-//   query FindEmail($email: String) {
-//     subscriber(where: { email: $email }) {
-//       name
-//       email
-//     }
-//   }
-// `
+import { useNavigate } from 'react-router-dom'
 
 export function Subscribe() {
+  const navigate = useNavigate()
   const [name, setName] = useState('')
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState('')
+  const [tokenInput, setTokenInput] = useState('')
   const [token, setToken] = useState('')
   const [verifyToken, setVerifyToken] = useState(false)
+  const [loading, setLoading] = useState(false)
 
-  const [createSubscriber, { loading }] = useCreateSubscriberMutation()
+  const [
+    createSubscriberMutation,
+    { loading: loadingCreateSubscribeMutation },
+  ] = useCreateSubscriberMutation()
   const { data: emailQuery, refetch: findEmail } = useFindEmailQuery({
     variables: { email },
   })
@@ -32,9 +31,47 @@ export function Subscribe() {
   console.log('emailQuery', emailQuery)
 
   async function handleSendToken() {
-    await findEmail({ email: email })
+    setLoading(true)
+    const { data }: any = await findEmail({ email: email })
+    console.log('data', data)
+    if (data.subscriber) {
+      alert('Email já existente')
+    } else {
+      fetch(`${hostServer}/sendEmailVerification`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setToken(data.token)
+          setLoading(false)
+          setVerifyToken(true)
+        })
+        .catch((error) => console.log(error))
+    }
+  }
 
-    // setVerifyToken(true)
+  async function registerUser() {
+    const isTokenValid = bcryptjs.compareSync(tokenInput, token)
+    const encryptedPassword = await bcryptjs.hash(password, 10)
+    if (isTokenValid) {
+      await createSubscriberMutation({
+        variables: {
+          name,
+          email,
+          password: encryptedPassword,
+        },
+      })
+      navigate('/event')
+    } else {
+      alert('Código de acesso incorreto!')
+    }
   }
 
   return (
@@ -94,9 +131,8 @@ export function Subscribe() {
                 <button
                   className="mt-4 bg-green-500 z-10 uppercase py-4 rounded font-bold text-sm hover:bg-green-700 transition-colors disabled:opacity-50"
                   type="submit"
-                  disabled={loading}
                 >
-                  Confirmar email
+                  {loading ? 'Enviando...' : 'Confirmar email'}
                 </button>
               </form>
             </>
@@ -112,15 +148,18 @@ export function Subscribe() {
                 </span>
               </div>
               <form
-                onSubmit={() => setVerifyToken(true)}
+                onSubmit={(e) => {
+                  e.preventDefault()
+                  registerUser()
+                }}
                 className="flex max-w-[380px] flex-col gap-2 w-full z-50"
               >
                 <input
                   className="bg-gray-900 rounded px-5 h-14 z-50 outline-none focus:ring-2 ring-emerald-500"
                   type="text"
-                  value={token}
+                  value={tokenInput}
                   placeholder="Insira o token de acesso"
-                  onChange={(event) => setToken(event.target.value)}
+                  onChange={(event) => setTokenInput(event.target.value)}
                 />
 
                 <button
@@ -128,7 +167,9 @@ export function Subscribe() {
                   type="submit"
                   disabled={loading}
                 >
-                  Garantir minha vaga
+                  {loadingCreateSubscribeMutation
+                    ? 'Verificando...'
+                    : 'Garantir minha vaga'}
                 </button>
                 <div
                   className="mt-4 flex items-center gap-x-2 mx-auto cursor-pointer text-white"
