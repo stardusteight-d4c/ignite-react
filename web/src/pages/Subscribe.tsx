@@ -1,35 +1,40 @@
+import { gql, useQuery } from '@apollo/client'
 import { ArrowLeft } from 'phosphor-react'
 import { useState, FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Footer } from '../components/Footer'
 import { Logo } from '../components/Logo'
 import { useCreateSubscriberMutation } from '../graphql/generated'
+import { useFindEmailQuery } from '../graphql/generated'
 import reactIcon from '/src/assets/react-icon.svg'
 
+// const FIND_EMAIL = gql`
+//   query FindEmail($email: String) {
+//     subscriber(where: { email: $email }) {
+//       name
+//       email
+//     }
+//   }
+// `
+
 export function Subscribe() {
-  const navigate = useNavigate()
   const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
+  const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState('')
   const [token, setToken] = useState('')
   const [verifyToken, setVerifyToken] = useState(false)
 
   const [createSubscriber, { loading }] = useCreateSubscriberMutation()
+  const { data: emailQuery, refetch: findEmail } = useFindEmailQuery({
+    variables: { email },
+  })
+
+  console.log('emailQuery', emailQuery)
 
   async function handleSendToken() {
-    setVerifyToken(true)
-  }
+    await findEmail({ email: email })
 
-  async function handleSubscribe(event: FormEvent) {
-    event.preventDefault()
-
-    await createSubscriber({
-      variables: {
-        name,
-        email,
-      },
-    })
-    navigate('/event')
+    // setVerifyToken(true)
   }
 
   return (

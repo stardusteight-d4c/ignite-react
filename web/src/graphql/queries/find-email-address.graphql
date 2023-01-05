@@ -1,0 +1,6 @@
+query FindEmail($email: String) {
+  subscriber(where: { email: $email }, stage: DRAFT) {
+    name
+    email
+  }
+}
