@@ -1,4 +1,3 @@
-import { gql, useQuery } from '@apollo/client'
 import { ArrowLeft } from 'phosphor-react'
 import { useState, FormEvent } from 'react'
 import bcryptjs from 'bcryptjs'
@@ -8,7 +7,7 @@ import { Logo } from '../components/Logo'
 import { useCreateSubscriberMutation } from '../graphql/generated'
 import { useFindEmailQuery } from '../graphql/generated'
 import reactIcon from '/src/assets/react-icon.svg'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export function Subscribe() {
   const navigate = useNavigate()
@@ -24,16 +23,13 @@ export function Subscribe() {
     createSubscriberMutation,
     { loading: loadingCreateSubscribeMutation },
   ] = useCreateSubscriberMutation()
-  const { data: emailQuery, refetch: findEmail } = useFindEmailQuery({
+  const { refetch: findEmail } = useFindEmailQuery({
     variables: { email },
   })
-
-  console.log('emailQuery', emailQuery)
 
   async function handleSendToken() {
     setLoading(true)
     const { data }: any = await findEmail({ email: email })
-    console.log('data', data)
     if (data.subscriber) {
       alert('Email já existente')
     } else {
@@ -93,13 +89,18 @@ export function Subscribe() {
           </p>
         </div>
 
-        <div className="p-8 max-w-[380px] w-full bg-gray-700 border border-gray-500 rounded">
+        <div className="p-8 max-w-[380px] h-full max-h-[406px] w-full bg-gray-700 border border-gray-500 rounded">
           {!verifyToken ? (
             <>
-              <strong className="text-2xl mb-6 block">
+              <strong className="text-2xl block">
                 Inscreva-se gratuitamente
               </strong>
-
+              <span className="mb-6 inline-block text-gray-400">
+                Já possui uma conta?{' '}
+                <Link to="/" className="underline">
+                  entre agora!
+                </Link>
+              </span>
               <form
                 onSubmit={(e) => {
                   e.preventDefault()

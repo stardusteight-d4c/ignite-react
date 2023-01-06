@@ -5817,6 +5817,13 @@ export type FindEmailQueryVariables = Exact<{
 
 export type FindEmailQuery = { __typename?: 'Query', subscriber?: { __typename?: 'Subscriber', name: string, email: string } | null };
 
+export type FindUserQueryVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+
+export type FindUserQuery = { __typename?: 'Query', subscribers: Array<{ __typename?: 'Subscriber', id: string, name: string, password: string, email: string }> };
+
 export type GetLessonBySlugQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']>;
 }>;
@@ -5901,6 +5908,44 @@ export function useFindEmailLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type FindEmailQueryHookResult = ReturnType<typeof useFindEmailQuery>;
 export type FindEmailLazyQueryHookResult = ReturnType<typeof useFindEmailLazyQuery>;
 export type FindEmailQueryResult = Apollo.QueryResult<FindEmailQuery, FindEmailQueryVariables>;
+export const FindUserDocument = gql`
+    query FindUser($email: String!) {
+  subscribers(where: {email: $email}, stage: DRAFT) {
+    id
+    name
+    password
+    email
+  }
+}
+    `;
+
+/**
+ * __useFindUserQuery__
+ *
+ * To run a query within a React component, call `useFindUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindUserQuery({
+ *   variables: {
+ *      email: // value for 'email'
+ *   },
+ * });
+ */
+export function useFindUserQuery(baseOptions: Apollo.QueryHookOptions<FindUserQuery, FindUserQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindUserQuery, FindUserQueryVariables>(FindUserDocument, options);
+      }
+export function useFindUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindUserQuery, FindUserQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindUserQuery, FindUserQueryVariables>(FindUserDocument, options);
+        }
+export type FindUserQueryHookResult = ReturnType<typeof useFindUserQuery>;
+export type FindUserLazyQueryHookResult = ReturnType<typeof useFindUserLazyQuery>;
+export type FindUserQueryResult = Apollo.QueryResult<FindUserQuery, FindUserQueryVariables>;
 export const GetLessonBySlugDocument = gql`
     query GetLessonBySlug($slug: String) {
   lesson(where: {slug: $slug}) {
