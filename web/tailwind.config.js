@@ -3,9 +3,6 @@ module.exports = {
   content: ['./src/**/*.tsx'],
   theme: {
     extend: {
-      screens: {
-        md: { max: '767px' },
-      },
       backgroundImage: {
         blur: 'url(/src/assets/blur-background.png)',
       },
@@ -39,5 +36,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('tailwind-scrollbar-hide')],
 }

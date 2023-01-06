@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   CaretRight,
   DiscordLogo,
@@ -29,8 +28,8 @@ export const Description = (props: Props) => {
   }
 
   return (
-    <div className="p-8 w-full">
-      <div className="flex items-start gap-16 md:block">
+    <div className="p-4 md:px-0 md:py-8 w-full">
+      <div className="block md:flex items-start gap-16">
         <div className="flex-1">
           <h1 className="text-2xl font-bold">{data.lesson.title}</h1>
           <p className="mt-4 text-gray-200 leading-relaxed">
@@ -55,7 +54,7 @@ export const Description = (props: Props) => {
           )}
         </div>
 
-        <div className="flex flex-col gap-4">
+        <div className="mt-6 md:mt-0 flex flex-col gap-4">
           <a
             href="#"
             className="p-4 text-sm bg-green-500 flex items-center rounded font-bold uppercase gap-2 justify-center hover:bg-green-700 transition-colors"
@@ -74,7 +73,7 @@ export const Description = (props: Props) => {
         </div>
       </div>
 
-      <div className="gap-8 mt-20 grid grid-cols-2 md:hidden">
+      <div className="gap-8 mt-20 hidden md:grid grid-cols-2">
         <a
           href="#"
           className="bg-gray-700 rounded overflow-hidden flex items-stretch gap-6 hover:bg-gray-600 transition-colors"

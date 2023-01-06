@@ -1,7 +1,7 @@
 import { CheckCircle, Lock } from 'phosphor-react'
 import { isPast, format } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
-import { Link, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import classNames from 'classnames'
 
 interface LessonProps {
@@ -13,10 +13,9 @@ interface LessonProps {
 
 export function Lesson(props: LessonProps) {
   const { slug } = useParams<{ slug: string }>()
+  const navigate = useNavigate()
 
-  const isLessonAvailable = isPast(
-    props.availableAt
-  ) /* Se a data de liberação da aula já passou, ela está liberada */
+  const isLessonAvailable = isPast(props.availableAt)
   const availableDateFormatted = format(
     props.availableAt,
     "EEEE' • 'd' de 'MMMM' • 'k'h'mm",
@@ -28,16 +27,24 @@ export function Lesson(props: LessonProps) {
   const isActiveLesson = slug === props.slug
 
   return (
-    <Link to={`/event/lesson/${props.slug}`} className="group">
+    <div
+      onClick={() =>
+        isLessonAvailable && navigate(`/event/lesson/${props.slug}`)
+      }
+      className={classNames('group', {
+        'cursor-pointer': isLessonAvailable,
+        'cursor-not-allowed': !isLessonAvailable,
+      })}
+    >
       <span className="text-gray-300">{availableDateFormatted}</span>
 
       <div
-        className={classNames(
-          'rounded border border-gray-500 p-4 mt-2 group-hover:border-green-500',
-          {
-            'bg-green-500': isActiveLesson,
-          }
-        )}
+        className={classNames('rounded border border-gray-500 p-4 mt-2', {
+          'bg-green-500': isActiveLesson,
+          'bg-transparent': !isLessonAvailable && isActiveLesson,
+          'group-hover:border-green-500': isLessonAvailable,
+          'group-hover:border-orange-500': !isLessonAvailable,
+        })}
       >
         <header className="flex items-center justify-between">
           {isLessonAvailable ? (
@@ -81,6 +88,6 @@ export function Lesson(props: LessonProps) {
           {props.title}
         </strong>
       </div>
-    </Link>
+    </div>
   )
 }

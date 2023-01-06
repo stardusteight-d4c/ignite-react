@@ -3,6 +3,12 @@
 @tailwind utilities;
 
 body {
-  @apply bg-gray-700 text-gray-100;
-  -webkit-font-smoothing: antialiased;
+  @apply bg-gray-700 text-gray-100 antialiased;
+}
+
+::-webkit-scrollbar {
+  @apply bg-transparent w-[4px];
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-white rounded-full;
 }

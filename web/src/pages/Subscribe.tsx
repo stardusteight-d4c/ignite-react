@@ -82,11 +82,11 @@ export function Subscribe() {
   }
 
   return (
-    <div className="bg-blur relative bg-cover bg-no-repeat flex flex-col items-center h-[100vh] overflow-hidden md:h-auto">
+    <div className="bg-blur relative bg-cover bg-no-repeat flex flex-col items-center md:h-[100vh] overflow-hidden h-auto">
       <img src={reactIcon} className="absolute mt-2 z-0" />
 
-      <div className="w-full max-w-[1100px] z-20 flex items-center justify-between mt-20 mx-auto md:block md:text-center">
-        <div className="max-w-[640px] md:px-4 pb-5">
+      <div className="w-full max-w-[1100px] z-20 block md:flex items-center justify-between mt-20 mx-auto text-center md:text-start">
+        <div className="max-w-[640px] md:px-0 px-4 pb-5">
           <Logo />
           <h1 className="mt-8 text-[2.5rem] leading-tight">
             Construa uma{' '}
@@ -195,7 +195,7 @@ export function Subscribe() {
           )}
         </div>
       </div>
-      <div className="absolute bottom-0 w-[100vw] md:relative">
+      <div className="mt-8 md:mt-auto bottom-0 w-[100vw] relative">
         <Footer />
       </div>
     </div>

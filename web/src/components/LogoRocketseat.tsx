@@ -1,6 +1,6 @@
 function LogoRocketseat() {
   return (
-    <svg className="md:mx-auto md:mb-6"
+    <svg className="mx-auto mb-6 md:mb-0 md:mx-0"
       xmlns="http://www.w3.org/2000/svg"
       width="162"
       height="31"

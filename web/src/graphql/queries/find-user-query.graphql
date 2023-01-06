@@ -1,8 +1,5 @@
 query FindUser($email: String!) {
-  subscribers(
-    where: { email: $email }
-    stage: DRAFT
-  ) {
+  subscribers(where: { email: $email }, stage: DRAFT) {
     id
     name
     password
