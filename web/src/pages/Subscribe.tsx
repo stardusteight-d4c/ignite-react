@@ -64,6 +64,17 @@ export function Subscribe() {
           password: encryptedPassword,
         },
       })
+      const { session } = await fetch(`${hostServer}/generateSession`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      }).then((res) => res.json())
+      localStorage.setItem('session', session)
       navigate('/event')
     } else {
       alert('Código de acesso incorreto!')

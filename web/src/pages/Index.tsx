@@ -6,6 +6,7 @@ import reactIcon from '/src/assets/react-icon.svg'
 import { Link, useNavigate } from 'react-router-dom'
 import bcryptjs from 'bcryptjs'
 import { useFindUserQuery } from '../graphql/generated'
+import { hostServer } from '../App'
 
 export function Index() {
   const navigate = useNavigate()
@@ -13,11 +14,12 @@ export function Index() {
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const { refetch: findUser, loading: loadingUserQuery } = useFindUserQuery({
+  const { refetch: findUser } = useFindUserQuery({
     variables: { email },
   })
 
   async function handleLogin() {
+    setLoading(true)
     const { data }: any = await findUser({
       email,
     })
@@ -27,10 +29,26 @@ export function Index() {
         data.subscribers[0].password
       )
 
-      isValidPassword ? 'gerar sesssion token -> armazenar em localStorage -> redirecionar para /event' : 'disparar alert'
+      if (isValidPassword) {
+        const { session } = await fetch(`${hostServer}/generateSession`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email,
+            password,
+          }),
+        }).then((res) => res.json())
+        localStorage.setItem('session', session)
+        navigate('/event')
+      } else {
+        alert('Email ou senha incorretos')
+      }
     } else {
       alert('Email ou senha incorretos')
     }
+    setLoading(false)
   }
 
   return (

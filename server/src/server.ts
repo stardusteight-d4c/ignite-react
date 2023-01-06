@@ -48,11 +48,9 @@ app.post("/generateSession", async (req: Request, res: Response) => {
       { email, hashedPassword },
       process.env.JWT_SECRET!,
       {
-        expiresIn: "7d",
+        expiresIn: "1d",
       },
     );
-
-    console.log('sessionToken', sessionToken);
     
     return res.status(200).json({
       status: true,
@@ -72,8 +70,6 @@ app.post("/authSession", async (req: Request, res: Response) => {
   try {
     const sessionToken: string | undefined = req.headers.authorization
     const decode = jwt.verify(sessionToken!, process.env.JWT_SECRET!)
-    console.log('decode', decode);
-    
     return res.status(200).json({ status: true, session: decode })
   } catch (error) {
     return res.json({ status: false, msg: 'Expired or invalid token' })
