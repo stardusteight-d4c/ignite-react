@@ -3,15 +3,12 @@ import { Lesson } from './Lesson'
 
 export function Sidebar() {
   const { data } = useGetLessonsQuery()
-  console.log(data)
 
   return (
-    <aside className="min-w-[348px] w-screen md:max-w-[348px] border border-l-0 border-gray-600 min-h-full max-h-[524px] md:rounded-r-xl scrollbar-hide overflow-y-scroll md:overflow-y-hidden overflow-hidden  bg-gray-700">
-    <span className="font-bold text-2xl text-center p-6 border-b border-gray-500 block">
-        Cronograma das aulas
-      </span>
-      <div className="h-full p-4 scrollbar-hide overflow-y-scroll">
-        <div className="flex flex-col gap-8 md:mb-[81px]">
+    <aside className={style.wrapper}>
+      <h2 className={style.title}>Cronograma das aulas</h2>
+      <div className={style.contentContainer}>
+        <div className={style.lessonsContainer}>
           {data?.lessons.map((lesson) => {
             return (
               <Lesson
@@ -27,4 +24,11 @@ export function Sidebar() {
       </div>
     </aside>
   )
+}
+
+const style = {
+  wrapper: `min-w-[348px] w-screen md:max-w-[348px] border border-l-0 border-gray-600 min-h-full max-h-[524px] md:rounded-r-xl scrollbar-hide overflow-y-scroll md:overflow-y-hidden overflow-hidden bg-gray-700`,
+  title: `font-bold text-2xl text-center p-6 border-b border-gray-500 block`,
+  contentContainer: `h-full p-4 scrollbar-hide overflow-y-scroll`,
+  lessonsContainer: `flex flex-col gap-8 md:mb-[81px]`,
 }
