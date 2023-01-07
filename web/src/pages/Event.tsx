@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom'
-import { Description } from '../components/Description'
+import { Description } from '../components/event/Description'
 import { Footer } from '../components/Footer'
-import { Header } from '../components/Header'
-import { Sidebar } from '../components/Sidebar'
-import { Video } from '../components/Video'
+import { Header } from '../components/event/Header'
+import { Sidebar } from '../components/event/Sidebar'
+import { Video } from '../components/event/Video'
 import { Logo } from '../components/Logo'
 
 export function Event() {

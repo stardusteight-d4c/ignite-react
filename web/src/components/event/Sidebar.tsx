@@ -1,4 +1,4 @@
-import { useGetLessonsQuery } from '../graphql/generated'
+import { useGetLessonsQuery } from '../../graphql/generated'
 import { Lesson } from './Lesson'
 
 export function Sidebar() {

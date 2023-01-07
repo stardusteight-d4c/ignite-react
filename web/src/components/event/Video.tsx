@@ -1,7 +1,7 @@
 import { DefaultUi, Player, Youtube } from '@vime/react'
 
 import '@vime/core/themes/default.css'
-import { useGetLessonBySlugQuery } from '../graphql/generated'
+import { useGetLessonBySlugQuery } from '../../graphql/generated'
 import { isPast } from 'date-fns'
 
 interface VideoProps {

@@ -5,7 +5,7 @@ import {
   Image,
   Lightning,
 } from 'phosphor-react'
-import { useGetLessonBySlugQuery } from '../graphql/generated'
+import { useGetLessonBySlugQuery } from '../../graphql/generated'
 
 interface Props {
   lessonSlug: string
