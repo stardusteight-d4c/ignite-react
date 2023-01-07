@@ -9,7 +9,7 @@
 > Client` we optimize state management and use it to fetch, cache and modify application data while updating
 > automatically your UI.
 
-:arrow_right: GraphQL <br /> 
+:arrow_right: GraphQL | A query language for your API <br /> 
 :arrow_right: Apollo Client <br /> 
 :arrow_right: Hygraph | Headless CMS <br /> 
 :arrow_right: date-fns <br /> 
