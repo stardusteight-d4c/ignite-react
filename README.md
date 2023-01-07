@@ -322,7 +322,7 @@ Finally, we recommend adding helpful scripts to your package.json file to ensure
 {
 "scripts": {
     "codegen": "graphql-codegen"
-  },
+  }
 }
 ```
 
