@@ -11,9 +11,8 @@
 
 :arrow_right: GraphQL | A query language for your API <br /> 
 :arrow_right: Apollo Client - a GraphQL Client <br /> 
-:arrow_right: GraphQL Code Generator | Generating types from a GraphQL schema
-:arrow_right: Hygraph | Headless CMS <br /> 
-:arrow_right: date-fns <br /> 
+:arrow_right: GraphQL Code Generator | Generating types from a GraphQL schema <br /> 
+:arrow_right: Hygraph | Headless CMS <br />
 
 <br />
 
