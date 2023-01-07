@@ -261,3 +261,77 @@ In this example, our form's `onSubmit` handler calls the `mutate function` (name
 *<i>apollographql.com/docs/react/get-started</i> <br />
 *<i>apollographql.com/docs/react/data/queries</i> <br />
 *<i>apollographql.com/docs/react/data/mutations</i> <br />
+
+<br />
+
+## GraphQL Code Generator | Generating types from a GraphQL schema 
+
+GraphQL uses a type system to clearly define the available data for each type and field in a GraphQL schema. `Type generation libraries can take advantage of the strongly-typed nature of a GraphQL schema to automatically generate TypeScript types based on that schema`.
+
+You can use these generated TS types in your resolvers to type-check that your resolvers' return values match the field types dictated by your schema. Type checking your resolvers enables you to catch errors quickly and gives you the peace of mind that type safety ensures.
+
+### Installing and configuring dependencies
+
+Run the following command to install the `@graphql-codegen/cli`, `@graphql-codegen/typescript`, `@graphql-codegen/typescript-operations`, `@graphql-codegen/typescript-react-apollo`, packages into your project's dev dependencies:
+
+ - `npm i @graphql-codegen/cli @graphql-codegen/typescript @graphql-codegen/typescript-operations @graphql-codegen/typescript-react-apollo`
+
+Most `client-side` implementations without GraphQL Code Generator would query the API as showcased in the following examples:
+
+```graphql
+# src/graphql/queries/get-lessons-query.graphql
+
+query GetLessons {
+  lessons(orderBy: availableAt_ASC, stage: PUBLISHED) {
+    id
+    lessonType
+    availableAt
+    title
+    slug
+  }
+}
+```
+
+Next, we'll set up a configuration file to tell GraphQL Code Generator where and how to generate types. You can do this by manually creating a `codegen.yml` file or by using the following command, which walks you through the process:
+
+ - `npx graphql-codegen`
+ 
+Below is an example of a codegen.yml file:
+
+```yml
+// codegen.yml
+
+schema: https://api-us-west-2.graphcms.com/v2/cl4o0fph100jc01xr0iruejj1/master
+documents: './src/graphql/**/*.graphql'
+generates:
+  ./src/graphql/generated.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      reactApolloVersion: 3
+      withHooks: true
+      withHOC: false
+      withComponent: false
+```
+
+Finally, we recommend adding helpful scripts to your package.json file to ensure your TS types are regularly generated:
+
+```json
+{
+"scripts": {
+    "codegen": "graphql-codegen"
+  },
+}
+```
+
+Now, with simple configuration and an npm/yarn script, a front-end developers benefits from:
+
+ - up-to-date typings
+ - autocompletion on all queries, mutations and, subscription variables and results
+ - less boilerplate (thanks to full code generation such as React hooks generation)
+ 
+*<i>the-guild.dev/graphql/codegen/docs/getting-started</i> <br />
+*<i>apollographql.com/docs/apollo-server/workflow/generate-types</i> <br />
+
