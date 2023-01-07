@@ -335,3 +335,30 @@ Now, with simple configuration and an npm/yarn script, a front-end developers be
 *<i>the-guild.dev/graphql/codegen/docs/getting-started</i> <br />
 *<i>apollographql.com/docs/apollo-server/workflow/generate-types</i> <br />
 
+<br />
+
+## Hygraph | Headless CMS 
+
+CMS stands for `Content Management System`. It is a software that allows you to `create and edit the layout, template and general content of a website such as a virtual store, for example`.
+
+A CMS is “headless” `when the front-end, template or head, that is, the head of the digital business, is separated from the back-end of the management platform`. The content, therefore, is not tied to a platform, that is, the content is free.
+
+Headless CMS is then different from monolithic CMS. While the latter delivers content to only one channel to which it is intrinsically linked, the former releases the content so that it can be distributed to other digital channels.
+
+Therefore, `with the headless CMS it is much easier and more flexible to distribute your content to your multiple sales channels` that work on mobile devices, desktops, smartwatches, smartvs, totems, etc.
+
+A Headless CMS will `provide an interface` just like a regular CMS would. However, its main difference is that, in the end, `you won't have the Frontend ready`. You'll need to develop one that consumes the content that's in the CMS. So, a Headless CMS doesn't care about how your content will look in the end, it `only cares about how the content will be structured`.
+
+### What are the advantages?
+
+As the concern is only with the structure of the content and the Frontend is decoupled from the solution, we have as a consequence:
+
+ - The `flexibility to choose the technology you want to use and think is best for the project`.
+ - `Ease of configuration and code deployment`, as you won't need a Backend, just the Front. So any static hoisting will suffice.
+ - The `flexibility to transpose the same content to different environments/devices`, which was once the biggest difficulty faced by traditional CMS.
+
+The best part: Headless CMS isn't just about websites. You can use a Headless CMS for creating mobile and desktop apps, among other uses.
+
+<div align="center">
+<img src="cms-vs-headless-cms.png" width="550" />
+</div>
