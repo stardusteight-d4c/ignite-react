@@ -8,7 +8,7 @@ import { Subscribe } from './pages/Subscribe'
 export function Router() {
   const navigate = useNavigate()
   const [authVerification, setAuthVerification] = useState(false)
-  
+
   useEffect(() => {
     ;(async () => {
       const session = localStorage.getItem('session')

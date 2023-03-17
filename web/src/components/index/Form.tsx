@@ -91,8 +91,8 @@ export function Form(props: Props) {
 }
 
 const style = {
-  wrapper: `min-h-[406px] max-h-[406px] max-w-[380px] w-full`,
-  container: `p-8 mt-8 md:mt-0 max-w-[380px] w-full bg-gray-700 border border-gray-500 rounded`,
+  wrapper: `min-h-[406px] max-h-[406px] md:max-w-[380px] w-full`,
+  container: `p-8 mt-8 md:mt-0 md:max-w-[380px] w-full bg-gray-700 border border-gray-500 md:rounded`,
   title: `text-2xl block`,
   span: `mb-6 inline-block text-gray-400`,
   form: `flex flex-col gap-2 w-full z-50`,
