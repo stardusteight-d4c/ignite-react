@@ -347,5 +347,7 @@ Now, with simple configuration and an npm/yarn script, a front-end developers be
  - autocompletion on all queries, mutations and, subscription variables and results
  - less boilerplate (thanks to full code generation such as React hooks generation)
  
+![screen](/screens/screen-lessons-desktop.png)
+ 
 <p align="center">Project made with :blue_heart: by <a href="https://github.com/stardusteight-d4c">Gabriel Sena</a></p>
 
